@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # Deploy to production on push to main
+      - main # Deploy to production on push to main
 
 jobs:
   deploy:
@@ -16,7 +16,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Debug EC2_KEY
-        run: echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
+        run: |
+          echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
