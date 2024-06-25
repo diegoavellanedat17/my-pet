@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main # Deploy to production on push to main
+      - main  # Deploy to production on push to main
 
 jobs:
   deploy:
@@ -16,19 +16,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
-        run: npm run build
+      - name: Debug EC2_KEY
+        run: echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
 
       - name: Prepare SSH key
-        run: echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Add SSH key to the agent
-        run: eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa
+        run: |
+          eval $(ssh-agent)
+          ssh-add ~/.ssh/id_rsa
 
       - name: Add SSH known hosts
         run: ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
