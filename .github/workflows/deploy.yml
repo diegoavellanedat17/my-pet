@@ -18,6 +18,30 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Debug EC2_KEY
+      - name: Debug EC2_KEY # Optional: For debugging purposes
         run: |
           echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
+
+      - name: Prepare SSH key
+        run: |
+          echo "${{ secrets.EC2_KEY }}" | base64 -d > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+
+      - name: Add SSH key to the agent
+        run: |
+          eval $(ssh-agent)
+          ssh-add $HOME/.ssh/id_rsa
+
+      - name: Add SSH known hosts
+        run: |
+          ssh-keyscan -H ${EC2_PUBLIC_IP} >> $HOME/.ssh/known_hosts
+
+      - name: Deploy to EC2
+        run: |
+          ssh ec2-user@${EC2_PUBLIC_IP} << 'EOF'
+            cd /path/to/your-app
+            git pull
+            npm install
+            npm run build
+            pm2 restart next-app
+          EOF
