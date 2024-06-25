@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh ec2-user@3.84.33.88 << 'EOF'
-            cd /my-pet
+            cd ./my-pet
             git pull
             npm install
             npm run build
