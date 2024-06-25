@@ -32,7 +32,8 @@ jobs:
         run: touch ~/.ssh/known_hosts
 
       - name: Add SSH key of EC2 instance to known_hosts
-        run: ssh-keyscan -H ${EC2_PUBLIC_IP} >> ~/.ssh/known_hosts
+        run: |
+          ssh-keyscan -H ${EC2_PUBLIC_IP} >> ~/.ssh/known_hosts
 
       - name: Prepare SSH key
         run: echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
