@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18" # Ensure this matches your Node.js version requirement
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
@@ -26,13 +26,19 @@ jobs:
         run: npm run build
 
       - name: Prepare SSH key
-        run: echo "${{ secrets.EC2_KEY }}" | base64 -d > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.EC2_KEY }}" | base64 -d > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
 
       - name: Add SSH key to the agent
-        run: eval $(ssh-agent) && ssh-add $HOME/.ssh/id_rsa
+        run: |
+          eval $(ssh-agent)
+          ssh-add $HOME/.ssh/id_rsa
 
       - name: Add SSH known hosts
-        run: ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> $HOME/.ssh/known_hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> $HOME/.ssh/known_hosts
 
       - name: Deploy to EC2
         run: |
