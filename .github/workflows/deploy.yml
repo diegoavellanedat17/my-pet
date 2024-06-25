@@ -50,5 +50,5 @@ jobs:
             git pull
             npm install
             npm run build
-            pm2 restart next-app
+            pm2 restart my-pet
           EOF
