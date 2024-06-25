@@ -1,6 +1,15 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -12,6 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Build the project
+        run: npm run build
 
       - name: Prepare SSH key
         run: echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
