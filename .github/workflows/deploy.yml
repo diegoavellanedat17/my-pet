@@ -25,17 +25,19 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Create SSH directory if not exists
+      - name: Prepare SSH directory if not exists
         run: mkdir -p ~/.ssh
 
-      - name: Diego good news
-        run: echo hope good news
-
-      - name: Prepare SSH key
-        run: echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+      - name: Prepare SSH known_hosts file
+        run: |
+          touch ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
       - name: Add SSH known hosts
         run: ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
+
+      - name: Prepare SSH key
+        run: echo "${{ secrets.EC2_KEY }}" | base64 -d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Start SSH agent and add key
         run: |
