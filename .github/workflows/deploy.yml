@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to EC2 my pet
 
 on:
   push:
@@ -24,6 +24,10 @@ jobs:
 
       - name: Build the project
         run: npm run build
+
+      - name: Create .ssh directory my pet
+        run: mkdir -p /home/runner/.ssh
+        shell: bash
 
       - name: Prepare SSH key
         run: echo "${{ secrets.EC2_KEY }}" | base64 -d > /home/runner/.ssh/id_rsa
