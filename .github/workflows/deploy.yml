@@ -8,6 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
+      NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
+      NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
 
     steps:
       - name: Checkout code
@@ -16,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: '18'
 
       - name: Debug EC2_KEY # Optional: For debugging purposes
         run: |
