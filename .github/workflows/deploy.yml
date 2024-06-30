@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Debug Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_USER_POOL_ID: $NEXT_PUBLIC_USER_POOL_ID"
+          echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID: $NEXT_PUBLIC_USER_POOL_CLIENT_ID"
+          echo "NEXT_PUBLIC_IDENTITY_POOL_ID: $NEXT_PUBLIC_IDENTITY_POOL_ID"
+
       - name: Debug EC2_KEY # Optional: For debugging purposes
         run: |
           echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
