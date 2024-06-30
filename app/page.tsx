@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import styles from "../src/styles/Home.module.css";
+import Link from 'next/link';
+import styles from '../src/styles/Home.module.css';
 
 export default function Home() {
   return (
@@ -11,6 +11,9 @@ export default function Home() {
         <p>Your pet&apos;s management system.</p>
         <Link href="/login">
           <button className={styles.button}>Login</button>
+        </Link>
+        <Link href="/register">
+          <button className={styles.button}>Register</button>
         </Link>
       </header>
       <section className={styles.about}>
