@@ -5,14 +5,14 @@ on:
     branches:
       - main # Deploy to production on push to main
 
+env:
+  NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
+  NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
+  NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    env:
-      NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
-      NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
-      NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
 
     steps:
       - name: Checkout code
