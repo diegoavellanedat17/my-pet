@@ -4,18 +4,24 @@ on:
   push:
     branches:
       - main # Deploy to production on push to main
-env:
-  NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
-  NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
-  NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
+      NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
+      NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Debug Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_USER_POOL_ID: $NEXT_PUBLIC_USER_POOL_ID"
+          echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID: $NEXT_PUBLIC_USER_POOL_CLIENT_ID"
+          echo "NEXT_PUBLIC_IDENTITY_POOL_ID: $NEXT_PUBLIC_IDENTITY_POOL_ID"
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -52,9 +58,9 @@ jobs:
           ssh ec2-user@3.84.33.88 << 'EOF'
             cd ./my-pet
             mv .env.local .env.local.backup || true
-            echo "NEXT_PUBLIC_USER_POOL_ID=${env.NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
-            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${env.NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
-            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${env.NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
+            echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
+            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
+            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
             cat .env.local
             git pull
             npm install
