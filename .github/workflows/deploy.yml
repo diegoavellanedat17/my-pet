@@ -51,9 +51,10 @@ jobs:
         run: |
           ssh ec2-user@3.84.33.88 << 'EOF'
             cd ./my-pet
-            echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
-            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
-            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
+            mv .env.local .env.local.backup || true
+            echo "NEXT_PUBLIC_USER_POOL_ID=${env.NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
+            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${env.NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
+            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${env.NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
             cat .env.local
             git pull
             npm install
