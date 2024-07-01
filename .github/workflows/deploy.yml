@@ -23,21 +23,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Create .env.local file
-        run: |
-          echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
-          echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
-          echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
-
-      - name: Debug .env.local
-        run: cat .env.local
-
-      - name: Build project
-        run: npm run build
-
       - name: Debug EC2_KEY # Optional: For debugging purposes
         run: |
           echo "EC2_KEY content: ${{ secrets.EC2_KEY }}"
@@ -67,6 +52,10 @@ jobs:
         run: |
           ssh ec2-user@3.84.33.88 << 'EOF'
             cd ./my-pet
+            echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
+            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
+            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
+            cat .env.local
             git pull
             npm install
             npm run build

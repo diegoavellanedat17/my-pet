@@ -10,4 +10,6 @@ const awsConfig = {
   },
 };
 
+console.log('aws config', awsConfig);
+
 export default awsConfig;
