@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
-      COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
-      COGNITO_IDENTITY_POOL_ID: ${{ secrets.COGNITO_IDENTITY_POOL_ID }}
+      NEXT_PUBLIC_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_ID }}
+      NEXT_PUBLIC_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID }}
+      NEXT_PUBLIC_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID }}
 
     steps:
       - name: Checkout code
@@ -23,11 +23,20 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Debug Environment Variables
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env.local file
         run: |
-          echo "COGNITO_USER_POOL_ID: $COGNITO_USER_POOL_ID"
-          echo "COGNITO_USER_POOL_CLIENT_ID: $COGNITO_USER_POOL_CLIENT_ID"
-          echo "COGNITO_IDENTITY_POOL_ID: $COGNITO_IDENTITY_POOL_ID"
+          echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
+          echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
+          echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
+
+      - name: Debug .env.local
+        run: cat .env.local
+
+      - name: Build project
+        run: npm run build
 
       - name: Debug EC2_KEY # Optional: For debugging purposes
         run: |
