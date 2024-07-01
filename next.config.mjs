@@ -8,4 +8,6 @@ const nextConfig = {
   },
 };
 
+console.log('the coso', nextConfig);
+
 export default nextConfig;
