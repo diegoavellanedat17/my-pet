@@ -57,12 +57,12 @@ jobs:
         run: |
           ssh ec2-user@3.84.33.88 << 'EOF'
             cd ./my-pet
-            mv .env.local .env.local.backup || true
-            echo "NEXT_PUBLIC_USER_POOL_ID=${NEXT_PUBLIC_USER_POOL_ID}" >> .env.local
-            echo "NEXT_PUBLIC_USER_POOL_CLIENT_ID=${NEXT_PUBLIC_USER_POOL_CLIENT_ID}" >> .env.local
-            echo "NEXT_PUBLIC_IDENTITY_POOL_ID=${NEXT_PUBLIC_IDENTITY_POOL_ID}" >> .env.local
-            cat .env.local
             git pull
+            mv .env.local .env.local.backup || true
+            echo NEXT_PUBLIC_USER_POOL_ID=${{ secrets.NEXT_PUBLIC_USER_POOL_ID}} >> .env.local
+            echo NEXT_PUBLIC_USER_POOL_CLIENT_ID=${{ secrets.NEXT_PUBLIC_USER_POOL_CLIENT_ID}} >> .env.local
+            echo NEXT_PUBLIC_IDENTITY_POOL_ID=${{ secrets.NEXT_PUBLIC_IDENTITY_POOL_ID}} >> .env.local
+            cat .env.local
             npm install
             npm run build
             pm2 restart my-pet
