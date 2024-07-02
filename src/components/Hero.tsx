@@ -12,7 +12,7 @@ export default function Hero() {
     <HeroSection>
       <HeroContent>
         <h1>Welcome to My Pet</h1>
-        <p>Your pet's management system.</p>
+        <p>Your pet&apos;s management system.</p>
         <Link href="/login" passHref>
           <HeroButton>Get Started</HeroButton>
         </Link>
