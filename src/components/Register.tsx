@@ -9,11 +9,26 @@ export default function RegisterComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [alert, setAlert] = useState({ message: '', type: '' });
   const router = useRouter();
+
+  const validatePassword = (password: string) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setAlert({ message: 'Passwords do not match', type: 'error' });
+      return;
+    }
+    if (!validatePassword(password)) {
+      setAlert({
+        message:
+          'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.',
+        type: 'error',
+      });
       return;
     }
     try {
@@ -21,14 +36,26 @@ export default function RegisterComponent() {
         username: email,
         password,
       });
+      setAlert({ message: 'Registration successful!', type: 'success' });
       router.push('/confirm');
     } catch (error) {
       console.error('Error registering', error);
+      setAlert({
+        message: 'Error registering. Please try again.',
+        type: 'error',
+      });
     }
   };
 
   return (
     <div className={styles.registerContainer}>
+      {alert.message && (
+        <div
+          className={`${styles.alert} ${alert.type === 'error' ? styles.error : styles.success}`}
+        >
+          {alert.message}
+        </div>
+      )}
       <input
         type="email"
         placeholder="Email"
