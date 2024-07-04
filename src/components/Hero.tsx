@@ -3,6 +3,7 @@ import {
   HeroContent,
   HeroButton,
   HeroImageWrapper,
+  ButtonsWrapper,
 } from '@/styles/Hero.styles';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,20 +14,22 @@ export default function Hero() {
       <HeroContent>
         <h1>Welcome to My Pet</h1>
         <p>Your pet&apos;s management system.</p>
-        <Link href="/login" passHref>
-          <HeroButton>Get Started</HeroButton>
-        </Link>
-        <Link href="/register" passHref>
-          <HeroButton>Register</HeroButton>
-        </Link>
+        <ButtonsWrapper>
+          <Link href="/login" passHref>
+            <HeroButton>Get Started</HeroButton>
+          </Link>
+          <Link href="/register" passHref>
+            <HeroButton>Register</HeroButton>
+          </Link>
+        </ButtonsWrapper>
       </HeroContent>
       <HeroImageWrapper>
         <Image
           src="/dog.png"
           alt="Hero Image"
           layout="responsive"
-          width={500}
-          height={500}
+          width={50}
+          height={50}
         />
       </HeroImageWrapper>
     </HeroSection>

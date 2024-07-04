@@ -5,7 +5,6 @@ export const HeroSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
   background: linear-gradient(
     90deg,
     rgba(113, 140, 136, 1) 0%,
@@ -14,26 +13,27 @@ export const HeroSection = styled.section`
   min-height: 100vh;
 
   ${(props) => props.theme.breakpoints.sm} {
-    flex-direction: column; /* Align content vertically */
   }
 
   ${(props) => props.theme.breakpoints.md} {
-    flex-direction: row; /* Align content vertically */
+    flex-direction: row;
   }
 `;
 
 export const HeroContent = styled.div`
-  max-width: 600px;
+  max-width: 400px;
+  width: 380px;
   color: ${(props) => props.theme.colors.text};
 
   h1 {
-    font-size: 6rem;
+    font-size: 2rem;
     color: ${(props) => props.theme.colors.light_text};
   }
 
   p {
     font-size: 1.25rem;
     margin: 1rem 0;
+    color: ${(props) => props.theme.colors.light_text};
   }
 
   ${(props) => props.theme.breakpoints.sm} {
@@ -48,14 +48,14 @@ export const HeroContent = styled.div`
 `;
 
 export const HeroImageWrapper = styled.div`
-  width: 100%;
+  width: 70%;
   max-width: 500px;
   border-radius: 10px;
   overflow: hidden;
 
   ${(props) => props.theme.breakpoints.sm} {
     width: 180%;
-    max-width: 200px;
+    max-width: 500px;
   }
 
   ${(props) => props.theme.breakpoints.md} {
@@ -66,8 +66,8 @@ export const HeroButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary};
   color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 1rem;
@@ -79,5 +79,15 @@ export const HeroButton = styled.button`
   ${(props) => props.theme.breakpoints.sm} {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
+  }
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${(props) => props.theme.breakpoints.sm} {
+    flex-direction: row;
+    gap: 1rem;
   }
 `;
