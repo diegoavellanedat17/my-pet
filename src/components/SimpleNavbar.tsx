@@ -9,7 +9,7 @@ const StyledNavbar = styled(Navbar)`
 
 const SimpleNavbar = () => {
   return (
-    <StyledNavbar expand="lg">
+    <StyledNavbar expand="lg" className="navbar-background">
       <Container>
         <Navbar.Brand as={Link} href="/" className="text-white">
           MyPet

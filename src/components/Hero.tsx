@@ -5,7 +5,7 @@ import { HeroSection } from '@/styles';
 
 export default function Hero() {
   return (
-    <HeroSection>
+    <HeroSection className="hero-section">
       <Container>
         <Row className="align-items-center">
           <Col lg={6}>

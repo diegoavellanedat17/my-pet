@@ -19,6 +19,24 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .navbar-background {
+                background-color: #718c88;
+              }
+              .hero-section {
+                background: linear-gradient(
+                  180deg,
+                  rgba(113, 140, 136, 1) 0%,
+                  rgba(94, 120, 117, 1) 100%
+                );
+                padding: 60px 0;
+                color: white; 
+              }
+            `,
+          }}
+        />
       </head>
       <body>
         <ThemeProvider theme={theme}>
