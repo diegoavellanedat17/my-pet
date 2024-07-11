@@ -6,11 +6,13 @@ export const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   background: linear-gradient(
-    90deg,
+    180deg,
     rgba(113, 140, 136, 1) 0%,
     rgba(94, 120, 117, 1) 100%
   );
   min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
 
   ${(props) => props.theme.breakpoints.sm} {
   }
@@ -48,7 +50,7 @@ export const HeroContent = styled.div`
 `;
 
 export const HeroImageWrapper = styled.div`
-  width: 70%;
+  width: 80%;
   max-width: 500px;
   border-radius: 10px;
   overflow: hidden;

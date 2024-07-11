@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   height: 100vh;
   font-family: ${(props) => props.theme.fonts.body};
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.text};
 `;
 
 export const Header = styled.header`

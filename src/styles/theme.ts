@@ -18,6 +18,7 @@ export const theme: DefaultTheme = {
     body: 'Roboto, sans-serif',
   },
   colors: {
+    mainBackground: '#718c88',
     light_text: '#fff',
     text: '#333',
     background: '#fff',
