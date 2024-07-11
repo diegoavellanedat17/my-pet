@@ -6,6 +6,7 @@ import { theme } from '../src/styles/theme';
 import { Amplify } from 'aws-amplify';
 import awsConfig from '../src/aws-exports';
 import SimpleNavbar from '@/components/SimpleNavbar';
+import GlobalStyle from '../src/styles/GlobalStyle';
 
 Amplify.configure(awsConfig);
 
@@ -20,9 +21,13 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <SimpleNavbar />
-        {children}
-        <Footer />
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+
+          <SimpleNavbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
