@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { HeroSection } from '@/styles';
+import { HeroSection, HeroImageWrapper, PrimaryButton } from '@/styles';
 
 export default function Hero() {
   return (
@@ -14,18 +14,16 @@ export default function Hero() {
               <p>Your pet&apos;s management system.</p>
               <div className="buttons-wrapper">
                 <Link href="/login" passHref>
-                  <Button variant="primary" className="mr-2">
-                    Get Started
-                  </Button>
+                  <PrimaryButton className="mr-2">Get Started</PrimaryButton>
                 </Link>
                 <Link href="/register" passHref>
-                  <Button variant="outline-primary">Register</Button>
+                  <PrimaryButton>Register</PrimaryButton>
                 </Link>
               </div>
             </div>
           </Col>
           <Col lg={6}>
-            <div className="hero-image-wrapper">
+            <HeroImageWrapper>
               <Image
                 src="/dog.png"
                 alt="Hero Image"
@@ -33,7 +31,7 @@ export default function Hero() {
                 width={50}
                 height={50}
               />
-            </div>
+            </HeroImageWrapper>
           </Col>
         </Row>
       </Container>
